@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/pages.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link} from 'react-router-dom';
 
 
 
@@ -49,7 +49,7 @@ const FoodPartnerLogin = () => {
         <button type="submit" className="form-button">Login</button>
       </form>
       <div className="form-link">
-        <a href="/food-partner/register">Don't have an account? Register</a>
+        <Link to="/food-partner/register">Don't have an account? Register</Link>
       </div>
     </div>
   );

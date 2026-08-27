@@ -1,6 +1,6 @@
 import '../../styles/pages.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,  Link } from 'react-router-dom';
 
 
 
@@ -50,7 +50,7 @@ const UserLogin = () => {
         <button type="submit" className="form-button">Login</button>
       </form>
       <div className="form-link">
-        <a href="/user/register">Don't have an account? Register</a>
+        <Link to="/user/register">Don't have an account? Register</Link>
       </div>
     </div>
   );
