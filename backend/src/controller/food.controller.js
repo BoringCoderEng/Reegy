@@ -1,4 +1,4 @@
-const foodModel = require('../models/fooditem.model');
+const foodModel = require('../models/food.model');
 const storageService = require('../services/storage.service');
 const { v4: uuid } = require('uuid');
 const LikeModel= require('../models/likes.model')
@@ -12,7 +12,9 @@ const addFoodItem = async (req, res) => {
         name: req.body.name,
         description: req.body.description,
         video: fileUploadResult.url,
-        foodPartner: req.foodPartner._id
+        foodPartner: req.foodPartner._id,
+        price: req.body.price,
+        cuisine: req.body.cuisine
     });
     res.status(201).json({
         message: 'Food item added successfully',
@@ -127,6 +129,24 @@ async function getSaveFood(req, res){
     });
 
 }
+
+exports.searchFood = async (req, res) => {
+  const { q, cuisine, veg, minPrice, maxPrice, sort } = req.query;
+  const filter = {};
+  // Why build this conditionally: an empty/unset filter key would
+  // otherwise incorrectly exclude everything.
+  if (q) filter.$text = { $search: q };
+  if (cuisine) filter.cuisine = cuisine;
+  if (veg !== undefined) filter.isVeg = veg === "true";
+  if (minPrice || maxPrice) filter.price = { ...(minPrice && { $gte: Number(minPrice) }), ...(maxPrice && { $lte: Number(maxPrice) }) };
+
+  let query = Food.find(filter).populate("partner", "name");
+  if (sort === "price_asc") query = query.sort({ price: 1 });
+  if (sort === "price_desc") query = query.sort({ price: -1 });
+  if (sort === "rating") query = query.sort({ avgRating: -1 });
+
+  res.json(await query.limit(50));
+};
 
 
 module.exports={

@@ -1,0 +1,72 @@
+@import '../styles/variables.css';
+
+.address-form {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border: 2px dashed var(--input-border);
+  border-radius: var(--border-radius);
+}
+
+.address-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.address-form input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.address-form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.address-form__error {
+  margin: 0;
+  color: var(--error-color);
+  font-size: 0.85rem;
+}
+
+.address-form__actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.address-form__cancel {
+  flex: 1;
+  padding: 0.65rem;
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.address-form__submit {
+  flex: 1;
+  padding: 0.65rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.address-form__submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

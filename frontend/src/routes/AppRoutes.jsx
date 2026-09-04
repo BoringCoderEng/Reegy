@@ -7,6 +7,11 @@ import Home from '../pages/general/Home'
 import CreateFood from '../pages/food-partner/createFood'
 import Profile from '../pages/food-partner/profile'
 import Saved from '../pages/general/Saved'
+// NEW — the cart/checkout/order pages that weren't routed anywhere before
+import Cart from '../pages/general/Cart'
+import Checkout from '../pages/general/Checkout'
+import OrderHistory from '../pages/general/OrderHistory'
+import OrderTracking from '../pages/general/OrderTracking'
 
 const AppRoutes = () => {
   return (
@@ -24,6 +29,11 @@ const AppRoutes = () => {
             element={<FoodPartnerLogin />} />
             <Route path="/create-food" element={<CreateFood />} />
             <Route path="/food-partner/:id" element={<Profile />} />
+            {/* NEW routes */}
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/orders" element={<OrderHistory />} />
+            <Route path="/orders/:id" element={<OrderTracking />} />
         </Routes>
     </Router>
   )

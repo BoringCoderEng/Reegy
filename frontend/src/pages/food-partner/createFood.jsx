@@ -95,6 +95,17 @@ const CreateFood = () => {
               required
             />
           </label>
+          <label className="create-food-field">
+            <span>Price</span>
+            <input
+              id="price"
+              name="price"
+              type="number"
+              placeholder="e.g. 250"
+              min="0"
+              required
+            />
+          </label>
 
           <label className="create-food-field" htmlFor="description">
             <span>Description</span>

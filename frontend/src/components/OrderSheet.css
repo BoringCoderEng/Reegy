@@ -1,0 +1,119 @@
+@import '../styles/variables.css';
+
+.order-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.order-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.order-sheet__content {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: var(--form-bg);
+  color: var(--text-color);
+  box-shadow: var(--shadow);
+  backdrop-filter: var(--backdrop-blur);
+  animation: order-sheet-rise 0.22s ease-out;
+}
+
+@keyframes order-sheet-rise {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.order-sheet__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-color);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.order-sheet__content h2 {
+  margin: 0 0 0.4rem;
+  padding-right: 2rem;
+  font-size: 1.3rem;
+}
+
+.order-sheet__description {
+  margin: 0 0 0.6rem;
+  opacity: 0.72;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.order-sheet__price {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.quantity-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.9rem;
+  border: 2px solid var(--input-border);
+  border-radius: 999px;
+}
+
+.quantity-stepper button {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.order-sheet__instructions {
+  width: 100%;
+  min-height: 4rem;
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.85rem;
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.order-sheet__submit {
+  width: 100%;
+  min-height: 3rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.order-sheet__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

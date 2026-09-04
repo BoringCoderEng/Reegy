@@ -18,8 +18,8 @@ const Profile = () => {
           { withCredentials: true }
         );
 
-        setPartner(response.data.foodPartner);
-        setFoodItems(response.data.foodItems || []);
+        setPartner(response.data.partner);
+        setFoodItems(response.data.menu || []);
       } catch (requestError) {
         setError(
           requestError.response?.data?.message || 'Unable to load this profile.'
@@ -29,7 +29,6 @@ const Profile = () => {
 
     fetchProfile();
   }, [id]);
-
   if (error) {
     return <main className="partner-profile">{error}</main>;
   }

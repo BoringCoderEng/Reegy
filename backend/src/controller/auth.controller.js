@@ -1,5 +1,5 @@
 const userModel=require('../models/user.model'); 
-const FoodPartnerModel=require('../models/foodpartner.model');
+const FoodPartnerModel=require('../models/food-partner.model');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 async function registerUser(req,res) {
@@ -30,7 +30,7 @@ async function registerUser(req,res) {
         }
     });
 }
-async function loginUser(req,res){
+/*async function loginUser(req,res){
     const {email,password}=req.body;
     const user=await userModel.findOne({email});
     if(!user){
@@ -51,7 +51,59 @@ async function loginUser(req,res){
             email:user.email
         }
     });
+}*/
+async function loginUser(req, res) {
+    console.log("1️⃣ LOGIN CONTROLLER HIT");
+
+    console.log("2️⃣ BODY:", req.body);
+
+    const { email, password } = req.body;
+
+    console.log("3️⃣ BEFORE FINDONE");
+
+    const user = await userModel.findOne({ email });
+
+    console.log("4️⃣ AFTER FINDONE:", user ? "USER FOUND" : "USER NOT FOUND");
+
+    if (!user) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    console.log("5️⃣ BEFORE BCRYPT");
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    console.log("6️⃣ AFTER BCRYPT:", isMatch);
+
+    if (!isMatch) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    console.log("7️⃣ BEFORE JWT");
+
+    const token = jwt.sign(
+        { id: user._id },
+        process.env.JWT_SECRET
+    );
+
+    console.log("8️⃣ JWT CREATED");
+
+    res.cookie("token", token, {
+        httpOnly: true
+    });
+
+    console.log("9️⃣ RESPONSE SENT");
+
+    return res.status(200).json({
+        message: "Login successful",
+        token
+    });
 }
+
 function logoutUser(req,res){
     res.clearCookie("token");
     res.status(200).json({message:"User logged out successfully"});

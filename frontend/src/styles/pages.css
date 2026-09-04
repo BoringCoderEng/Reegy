@@ -748,3 +748,6 @@ body {
 @media (min-width: 600px) {
   .app-shell { box-shadow: none; }
 }
+
+.reel-feed { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+.reel-item { height: 100vh; scroll-snap-align: start; position: relative; }

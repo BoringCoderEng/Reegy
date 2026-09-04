@@ -1,20 +1,76 @@
-const foodpartnerModel = require('../models/foodpartner.model');
-const foodModel = require('../models/fooditem.model');
+const Order =
+    require("../models/order.model");
 
-async function getFoodPartnerById(req, res) {
-    const foodPartnerId= req.params.id;
-    const foodPartner = await foodpartnerModel.findById(foodPartnerId);
+const Food =
+    require("../models/food.model");
 
-    if(!foodPartner){
-        return res.status(404).json({message: "Food Partner not found"});
+const FoodPartner =
+    require("../models/food-partner.model");
+
+
+exports.getMyOrders = async (
+    req,
+    res
+) => {
+    try {
+        const orders =
+            await Order.find({
+                foodPartner:
+                    req.user._id
+            })
+                .populate("user", "name email")
+                .populate("address")
+                .populate("items.food")
+                .sort({
+                    createdAt: -1
+                });
+
+        res.json(orders);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message:
+                "Failed to fetch partner orders"
+        });
     }
-    const foodItems = await foodModel.find({ foodPartner: foodPartnerId });
+};
 
-    res.status(200).json({
-        message: "Food Partner retrieved successfully",
-        foodPartner,
-        foodItems
-    });
-}
 
-module.exports = { getFoodPartnerById };
+exports.getPartnerStorefront =
+    async (req, res) => {
+        try {
+            const partner =
+                await FoodPartner.findById(
+                    req.params.id
+                );
+
+            if (!partner) {
+                return res.status(404).json({
+                    message:
+                        "Partner not found"
+                });
+            }
+
+            const menu =
+                await Food.find({
+                    partner: partner._id
+                });
+
+            res.json({
+                partner,
+                menu
+            });
+
+        } catch (error) {
+            console.error(error);
+
+            res.status(500).json({
+                message:
+                    "Failed to fetch storefront"
+            });
+        }
+    };
+
+    

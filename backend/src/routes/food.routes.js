@@ -10,7 +10,7 @@ const upload = multer({
 });
 router.post('/add', authMiddleware.authfoodpartnerMiddleware, upload.single("video"), foodcontroller.addFoodItem);
 
-router.get("/",authMiddleware.authUserMiddleware , foodcontroller.getFoodItems);
+router.get("/get",authMiddleware.authUserMiddleware , foodcontroller.getFoodItems);
 
 router.post('/like',authMiddleware.authUserMiddleware, foodcontroller.likeFood);
 
